@@ -26,9 +26,24 @@ namespace ORM_Dapper_DB.Products
 
         }
 
+        // Update a Product //
         public void UpdateProduct(int prodId, string name, double price, int categoryId, int sale, string stock)
         {
             _connection.Execute("UPDATE Products SET Name = @name, Price = @price, CategoryID = @categoryId, OnSale = @sale, StockLevel = @stock WHERE ProductID = @prodId;", new { name = name, price = price, categoryId = categoryId, sale = sale, stock = stock, prodId = prodId, });
+        }
+
+        // Delete a Product //
+
+        public void DeleteProduct(int productID)
+        {
+            _connection.Execute("DELETE FROM reviews WHERE ProductID = @productID;",
+               new { productID = productID });
+
+            _connection.Execute("DELETE FROM sales WHERE ProductID = @productID;",
+               new { productID = productID });
+
+            _connection.Execute("DELETE FROM products WHERE ProductID = @productID;",
+               new { productID = productID });
         }
     }
 }

@@ -18,7 +18,7 @@ string connString = config.GetConnectionString("DefaultConnection");
 IDbConnection connection = new MySqlConnection(connString);
 
 
-// Departments //
+// Getting All Departments //
 
 //var repo = new DapperDepartmentRepository(connection);
 // Adding a New Department to the BestBuy DB //
@@ -46,7 +46,7 @@ foreach (var product in products)
     WriteLine();
 }
 
-// Add a new Product //
+// Add a new Product to the Products Table //
 
 //WriteLine("Please Add a New Product to the Best Buy DataBase\n");
 //Write("> Please Enter a Product Name: ");
@@ -63,11 +63,25 @@ foreach (var product in products)
 
 
 ReadKey();
-prodRepo.UpdateProduct(942, "Grounded", 80.00, 8, 5, "10967");
-WriteLine("Does this fire? ");
 
+// Update Product //
+prodRepo.UpdateProduct(942, "Grounded", 79.99, 8, 0, "10123");
 
-foreach (var product in products)
+var updateadProducts = prodRepo.GetProducts();
+
+foreach (var product in updateadProducts)
+{
+    WriteLine();
+    WriteLine($"> ProductId: {product.ProductId} Name: {product.Name} Price: {product.Price}\n> CategoryId: {product.CategoryId} OnSale: {product.OnSale} Stock Level: {product.StockLevel}");
+    WriteLine();
+}
+ReadKey();
+
+// Delete Product //
+prodRepo.DeleteProduct(942);
+var updateAfterDelete = prodRepo.GetProducts();
+
+foreach (var product in updateAfterDelete)
 {
     WriteLine();
     WriteLine($"> ProductId: {product.ProductId} Name: {product.Name} Price: {product.Price}\n> CategoryId: {product.CategoryId} OnSale: {product.OnSale} Stock Level: {product.StockLevel}");
