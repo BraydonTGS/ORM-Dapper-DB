@@ -14,11 +14,14 @@ IDbConnection connection = new MySqlConnection(connString);
 
 var repo = new DapperDepartmentRepository(connection);
 
-var departments = repo.GetDepartments();
-
 Console.WriteLine("Welcome to the Best Buy Database");
 Console.WriteLine();
 Console.Write("Please type a new Department Name: ");
+var newDepartment = Console.ReadLine();
+repo.InsertDepartment(newDepartment);
+
+var departments = repo.GetDepartments();
+
 
 foreach (var department in departments)
 {
