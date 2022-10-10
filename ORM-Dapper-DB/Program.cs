@@ -1,21 +1,26 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.VisualBasic;
 using MySql.Data.MySqlClient;
 using ORM_Dapper_DB;
 using ORM_Dapper_DB.Products;
 using System.Data;
 using static System.Console;
 
+// Creating a new config object // 
 var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-string connString = config.GetConnectionString("DefaultConnection");
+// Connection String //
 
+string connString = config.GetConnectionString("DefaultConnection");
 IDbConnection connection = new MySqlConnection(connString);
 
-var repo = new DapperDepartmentRepository(connection);
 
+// Departments //
+
+//var repo = new DapperDepartmentRepository(connection);
 // Adding a New Department to the BestBuy DB //
 //Console.WriteLine("Welcome to the Best Buy Database");
 //Console.WriteLine();
@@ -23,8 +28,7 @@ var repo = new DapperDepartmentRepository(connection);
 //var newDepartment = Console.ReadLine();
 //repo.InsertDepartment(newDepartment);
 // Getting all of the Departments //
-var departments = repo.GetDepartments();
-
+//var departments = repo.GetDepartments();
 //foreach (var department in departments)
 //{
 //    Console.WriteLine($"> Department Name: {department.Name} DepartmentId: {department.DepartmentId}");
@@ -42,18 +46,26 @@ foreach (var product in products)
     WriteLine();
 }
 
-WriteLine("Please Add a New Product to the Best Buy DataBase\n");
-Write("> Please Enter a Product Name: ");
-var name = ReadLine();
-Write("> Please Enter a Product Price: ");
-var price = Double.Parse(ReadLine());
-Write("> Please Enter a CategoryId (1-10): ");
-var categoryId = int.Parse(ReadLine());
-Write("> Please Enter the Stock Amount: ");
-var stock = ReadLine();
+// Add a new Product //
+
+//WriteLine("Please Add a New Product to the Best Buy DataBase\n");
+//Write("> Please Enter a Product Name: ");
+//var name = ReadLine();
+//Write("> Please Enter a Product Price: ");
+//var price = double.Parse(ReadLine());
+//Write("> Please Enter a CategoryId (1-10): ");
+//var categoryId = int.Parse(ReadLine());
+//Write("> Please Enter a sale (0-1): ");
+//var sale = int.Parse(ReadLine());
+//Write("> Please Enter a stock amount: ");
+//var stock = ReadLine();
+//prodRepo.InsertProduct(name, price, categoryId, sale, stock);
 
 
-prodRepo.InsertProduct(name, price, categoryId, stock);
+ReadKey();
+prodRepo.UpdateProduct(942, "Grounded", 80.00, 8, 5, "10967");
+WriteLine("Does this fire? ");
+
 
 foreach (var product in products)
 {
@@ -62,7 +74,7 @@ foreach (var product in products)
     WriteLine();
 }
 
-
-
 ReadKey();
+
+
 
